@@ -17,25 +17,26 @@ cp ./id_rsa.pub  ~/.ssh/authorized_keys
 #setting up iptables rules
 echo setting up iptables firewall Dos protection and for portscan 
 iptables -F
-iptables -A INPUT -m state --state NEW -m recent --set
-iptables -A INPUT -p tcp -m state --state NEW -m recent --update --seconds 1 --hitcount 10 -j DROP
 iptables -A INPUT -p udp -m udp --dport 53 -m state --state NEW -m recent --set 
-iptables -A INPUT -p udp -m udp --dport 53 -m state --state NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
+iptables -A INPUT -p udp -m udp --dport 53 -m state --state NEW -m recent --update --seconds2 60 --hitcount 10 -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 53 -m state --state NEW -m recent --set 
 iptables -A INPUT -p tcp -m tcp --dport 53 -m state --state NEW -m recent --update --seconds 60 --hitcount 10  -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 443 -m state --state NEW -m recent --set 
 iptables -A INPUT -p tcp -m tcp --dport 443 -m state --state NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
 iptables -A INPUT -p tcp -m tcp --dport 80 -m state --state NEW -m recent --set
 iptables -A INPUT -p tcp -m tcp --dport 80 -m state --state NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
+iptables -A INPUT -p tcp -m tcp --dport 2211 -m state --state NEW -m recent --set
 iptables -A INPUT -p tcp -m tcp --dport 2211 -m state --state NEW -m recent --update --seconds 60 --hitcount 10 -j DROP
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
+iptables -A INPUT -m state --state NEW -m recent --set
+iptables -A INPUT -p tcp -m state --state NEW -m recent --update --seconds 1 --hitcount 10 -j DROP
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 53 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 2211 -j ACCEPT
 iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
 echo saving iptables rulees with iptables-persistent
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
