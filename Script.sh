@@ -13,6 +13,7 @@ echo netplan applied
 echo Changing SSH port to 2211 and editing the file sshd-config to block RootLoginPermit, PasswordAuthentification and uncomment PublicKeyAuthuntification
 cp ./sshd_config /etc/ssh/sshd_config
 echo applying public key \(id_rsa.pub\)
+mkdir ~/.ssh
 cp ./id_rsa.pub  ~/.ssh/authorized_keys
 #setting up iptables rules
 echo setting up iptables firewall Dos protection and for portscan 
@@ -43,3 +44,5 @@ echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo deb
 apt install iptables-persistent -y
 #netfilter-persistent start
 netfilter-persistent save
+#installing Apache2 
+apt install apache2 -y
