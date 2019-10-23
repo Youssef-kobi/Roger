@@ -45,16 +45,28 @@
 ##netfilter-persistent start
 #netfilter-persistent save
 #installing Apache2 
-echo installing Apache2...
-apt install apache2 -y
-rm -rf index.html
-cp -r ./ustora/* /var/www/html/
-#ssl
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.24.225" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
-cp ./ssl-params.conf ~/etc/apache2/conf-available/
-cp ./default-ssl.conf ~/etc/apache2/sites-available/default-ssl.conf
-cp ./000-default.conf ~/etc/apache2/sites-available/000-default.conf
-a2enmod ssl
-a2enmod headers
-a2ensite default-ssl
-a2enconf ssl-params
+#echo installing Apache2...
+#apt install apache2 -y
+#rm -rf index.html
+#cp -r ./ustora/* /var/www/html/
+##ssl
+#echo generation a selfsigned key and cert
+#openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.24.225" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+#echo setting up a Strong Encryption Settings
+#cp ./ssl-params.conf ~/etc/apache2/conf-available/
+#echo Editing default ssl servername, cert and key Path 
+#cp ./default-ssl.conf ~/etc/apache2/sites-available/default-ssl.conf
+#echo Enabling HTTP to HTTPS redirection
+#cp ./000-default.conf ~/etc/apache2/sites-available/000-default.conf
+#echo Setting up apache ssle
+#a2enmod ssl
+#a2enmod headers
+#a2ensite default-ssl
+#a2enconf ssl-params
+echo Setting up crontab to update & upgrade packages
+crontab -l > /Cron_updates
+mkdir /var/scripts
+cp ./update.sh /var/scripts/
+echo "@reboot /var/scripts/update.sh" >> Cron_updates
+echo "0 4 * * 6 /var/scirpts/update.sh" >> Cron_updates
+cron Cron_updates
