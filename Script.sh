@@ -74,5 +74,20 @@
 #echo "0 4 * * 6 /var/scirpts/update.sh" >> Cron_updates
 #cron Cron_updates
 #Monitoring crontab
-#apt install mailutils -y
+echo postfix postfix/mailname string server | sudo debconf-set-selections
+echo postfix postfix/mailbox_limit string 0 | sudo debconf-set-selections
+echo postfix postfix/destinations string \$myhostname, webserver, localhost.localdomain, localhost  | sudo debconf-set-selections
+echo postfix postfix/recipient_delim string + | sudo debconf-set-selections
+echo postfix postfix/mynetworks string 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 | sudo debconf-set-selections
+echo postfix postfix/main_cf_conversion_warning boolean true | sudo debconf-set-selections
+echo postfix postfix/chattr boolean false | sudo debconf-set-selections
+echo postfix postfix/compat_conversion_warning boolean true | sudo debconf-set-selections
+echo postfix postfix/newaliases boolean false | sudo debconf-set-selections
+echo postfix postfix/rfc1035_violation boolean false | sudo debconf-set-selections
+echo postfix postfix/lmtp_retired_warning boolean true | sudo debconf-set-selections
+echo postfix postfix/procmail boolean false | sudo debconf-set-selections
+echo postfix postfix/protocols select all | sudo debconf-set-selections
+echo postfix postfix/main_mailer_type select local only | sudo debconf-set-selections
+apt install mailutils -y
+service postfix reload
 ./cron_monitor.sh
