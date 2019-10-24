@@ -66,13 +66,12 @@
 #a2ensite default-ssl
 #a2enconf ssl-params
 #systemctl restart apache2
-#echo Setting up crontab to update & upgrade packages
-#crontab -l > /Cron_updates
-#mkdir /var/scripts
-#cp ./update.sh /var/scripts/
-#echo "@reboot /var/scripts/update.sh" >> Cron_updates
-#echo "0 4 * * 6 /var/scirpts/update.sh" >> Cron_updates
-#cron Cron_updates
+echo Setting up crontab to update & upgrade packages
+crontab -l > /Cron_updates
+mkdir /var/scripts
+cp ./update.sh /var/scripts/
+echo "@reboot /var/scripts/update.sh" >> Cron_updates
+echo "0 4 * * 6 /var/scirpts/update.sh" >> Cron_updates
+cron Cron_updates
 #Monitoring crontab
-#apt install mailutils -y
-./cron_monitor.sh
+apt install mailutils -y
