@@ -1,2 +1,0 @@
-@reboot /var/scripts/update.sh
-0 4 * * 6 /var/scirpts/update.sh
