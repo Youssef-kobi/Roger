@@ -30,39 +30,39 @@ iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 15 -j R
 iptables -A INPUT -p tcp --syn --dport 443 -m connlimit --connlimit-above 15 -j REJECT --reject-with tcp-reset  
 # drop all invalid packets
 iptables -A INPUT -m state --state INVALID -j DROP
-iptables -A OUTPUT -m state --state INVALID -j DROP
-iptables -A FORWARD -m state --state INVALID -j DROP
+#iptables -A OUTPUT -m state --state INVALID -j DROP
+#iptables -A FORWARD -m state --state INVALID -j DROP
 # allow established
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+#iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # allow loopback (localhost)
 iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
+#iptables -A OUTPUT -o lo -j ACCEPT
 # allow ping
 iptables -t filter -A INPUT -p icmp -j ACCEPT
-iptables -t filter -A OUTPUT -p icmp -j ACCEPT
+#iptables -t filter -A OUTPUT -p icmp -j ACCEPT
 # allow DNS
-iptables -A OUTPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p udp --dport 53 -m state --state NEW -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
+#iptables -A OUTPUT -p udp --dport 53 -m state --state NEW -j ACCEPT
 # allow smtp
-iptables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
-iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
+#iptables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
+#iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
 # allow ssh
 iptables -A INPUT -p tcp --dport 2211 -j ACCEPT
 iptables -I INPUT -p tcp --dport 2211  -m state --state new -m recent --update --seconds 20 --hitcount 5 -j DROP
 iptables -I INPUT -p tcp --dport 2211 -m state --state new -m recent --set
 # allow http/https
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
 iptables -I INPUT -p tcp --dport 80 -m state --state new -m recent --set
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -p tcp --dport 443 -m state --state new -m recent --set
 #set drop policy                                                                                                                                                                                        
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
-iptables -P OUTPUT DROP
+#iptables -P OUTPUT DROP
 echo saving iptables rulees with iptables-persistent
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
