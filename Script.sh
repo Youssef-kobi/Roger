@@ -20,6 +20,7 @@ cp ./sshd_config /etc/ssh/sshd_config
 echo applying public key \(id_rsa.pub\)
 mkdir ~/.ssh
 cp ./id_rsa.pub  ~/.ssh/authorized_keys
+service ssh restart
 #setting up iptables rules
 echo setting up iptables firewall Dos protection and for portscan 
 ## flush everything
@@ -74,10 +75,13 @@ a2enmod headers
 a2ensite default-ssl
 a2enconf ssl-params
 systemctl restart apache2
+
 #install mailutils and postfix
-debconf-set-selections <<< "postfix postfix/mailname string $HOST"
-debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+
+echo "postfix postfix/mailname string $HOST" | debconf-set-selections 
+echo "postfix postfix/main_mailer_type string 'Internet Site')" | debconf-set-selections 
 apt-get install -y mailutils
+
 echo Setting up crontab to update  upgrade packages
 mkdir /var/scripts
 cp ./update.sh /var/scripts/
@@ -93,10 +97,6 @@ systemctl stop atd
 systemctl disable atd
 systemctl stop ebtables
 systemctl disable ebtable
-systemctl stop lvm2-lvmetad
-systemctl disable lvm2-lvmetad
-systemctl stop lvm2-lvmpolld
-systemctl disable lvm2-lvmpolld
 systemctl stop ufw
 systemctl disable ufw
 systemctl stop unattended-upgrades
