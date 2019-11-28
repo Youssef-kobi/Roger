@@ -7,7 +7,7 @@ network:
     ethernets:
         enp0s3:
             dhcp4: no
-            addresses: [10.11.254.226/27]
+            addresses: [10.11.254.253/30]
             gateway4: 10.11.254.254
             nameservers:
              addresses: [8.8.8.8,8.8.4.4]

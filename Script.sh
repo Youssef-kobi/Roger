@@ -8,6 +8,7 @@ HOST=$(hostname)
 #useradd $varname
 #usermod -aG sudo $varname
 #echo $varname is a sudoer !
+./update.sh
 #Static ip
 echo Getting Your Static ip ready ...
 cp ./50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
@@ -60,7 +61,7 @@ rm -rf index.html
 cp -r ./ustora/* /var/www/html/
 #ssl
 echo generation a selfsigned key and cert
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.24.225" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.254.253" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
 echo setting up a Strong Encryption Settings
 cp ./ssl-params.conf /etc/apache2/conf-available/
 echo Editing default ssl servername, cert and key Path 
