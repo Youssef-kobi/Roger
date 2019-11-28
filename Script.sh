@@ -23,11 +23,9 @@ cp ./id_rsa.pub  ~/.ssh/authorized_keys
 echo setting up iptables firewall Dos protection and for portscan 
 ## flush everything
 iptables -F
-iptables -X
-iptables -Z
 #set limit connections
-iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 15 -j REJECT --reject-with tcp-reset  
-iptables -A INPUT -p tcp --syn --dport 443 -m connlimit --connlimit-above 15 -j REJECT --reject-with tcp-reset  
+iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 15 -j REJECT
+iptables -A INPUT -p tcp --syn --dport 443 -m connlimit --connlimit-above 15 -j REJECT  
 # drop all invalid packets
 iptables -A INPUT -m state --state INVALID -j DROP
 # allow established
@@ -45,7 +43,7 @@ iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -I INPUT -p tcp --dport 80 -m state --state new -m recent --set
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -p tcp --dport 443 -m state --state new -m recent --set
-#set drop policy                                                                                                                                                                                        
+#set drop policy
 iptables -P INPUT DROP
 iptables -P FORWARD ACCEPT
 iptables -P OUTPUT ACCEPT
@@ -62,14 +60,14 @@ rm -rf index.html
 cp -r ./ustora/* /var/www/html/
 #ssl
 echo generation a selfsigned key and cert
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.24.226" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=MA/ST=West coast /L=KHOURIBGA/O=1337/CN=10.11.24.225" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
 echo setting up a Strong Encryption Settings
 cp ./ssl-params.conf /etc/apache2/conf-available/
 echo Editing default ssl servername, cert and key Path 
 cp ./default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 echo Enabling HTTP to HTTPS redirection
 cp ./000-default.conf /etc/apache2/sites-available/000-default.conf
-echo Setting up apache ssle
+echo Setting up apache ssl
 a2enmod ssl
 a2enmod headers
 a2ensite default-ssl
@@ -86,3 +84,19 @@ cp ./cron_monitor.sh /var/scripts/
 echo "$(echo '@reboot  /var/scripts/update.sh' ; crontab -l)" | crontab -
 echo "$(echo '0 4 * * 6 /var/scripts/update.sh' ; crontab -l)" | crontab -
 echo "$(echo '0 0 * * *  /var/scripts/cron_monitor.sh' ; crontab -l)" | crontab -
+systemctl stop apparmor
+systemctl disable appamor
+systemctl stop apport
+systemctl disable apport
+systemctl stop atd
+systemctl disable atd
+systemctl stop ebtables
+systemctl disable ebtable
+systemctl stop lvm2-lvmetad
+systemctl disable lvm2-lvmetad
+systemctl stop lvm2-lvmpolld
+systemctl disable lvm2-lvmpolld
+systemctl stop ufw
+systemctl disable ufw
+systemctl stop unattended-upgrades
+systemctl disable unattended-upgrades
