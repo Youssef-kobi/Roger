@@ -1,8 +1,28 @@
-# Roger-skyline-1
+ <h1 align="center">
+  <br>
+  <a href="https://github.com/Youssef-kobi/Roger"><img src="https://user-images.githubusercontent.com/52678976/231541425-9c4c4871-094c-4e93-988b-18dc2373f33a.png" alt="Roger" width="200"></a>
+
+  <br>
+   Roger-skyline-1
+  <br>
+</h1>
+
+<h4 align="center">A Hands-on System Administration Project for Networking and Security Skills.</h4>
+
+<p align="center">
+	<a href="#introduction">Introduction</a> •
+  <a href="#what-i-learned">What I Learned</a> •
+  <a href="#conclusion">Conclusion</a> •
+</p>
+
 
 ## Introduction
 
-Roger-skyline-1 is a system administration project assigned as part of the curriculum at the 1337 coding school, one of the 42 network schools. In this project, I gained valuable hands-on experience in system administration, networking, and security by completing a series of tasks to configure a virtual machine to meet certain specifications.
+Roger-skyline-1 is a system administration project that involves configuring a virtual machine to meet certain specifications. As part of the curriculum at the 1337 coding school, one of the 42 network schools, this project provides valuable hands-on experience in system administration, networking, and security.
+
+By completing a series of tasks, participants in the Roger-skyline-1 project gain practical experience in configuring and managing virtual machines using VirtualBox, a popular open-source virtualization software. They learn how to set up and secure network settings, including static IP address and gateway configuration and the use of firewalls and iptables to control access to specific ports and IP addresses. Participants also gain experience in configuring SSH access, including setting up public and private key pairs and disabling password authentication, as well as installing and configuring a web server using Apache to serve a static HTML webpage.
+
+Through completing the Roger-skyline-1 project, participants gain valuable skills in several key areas of system administration, networking, and security. These skills include virtualization, networking, security, and web server administration. Successful completion of the project provides a valuable addition to a portfolio, demonstrating skills and knowledge in these areas
 
 ## What I Learned
 
@@ -25,3 +45,4 @@ By completing this project, I was able to develop my skills in several key areas
 ## Conclusion
 
 Completing the Roger-skyline-1 project was a valuable learning experience for me. Not only did I gain a deeper understanding of system administration, networking, and security, but I also developed my skills in key areas such as virtualization, networking, security, and web servers. By successfully completing the project, I have a valuable addition to my portfolio that demonstrates my skills and knowledge in these areas.
+
